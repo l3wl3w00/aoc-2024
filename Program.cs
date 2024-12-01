@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Aoc._2024.Day1;
+namespace Aoc._2024;
 
 class Program
 {
