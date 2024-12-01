@@ -41,8 +41,8 @@ public interface IAocDay<TResult> : IAocDay
         }
         else
         {
-            testResult = SolvePart2(testInputPath)!.Value;
-            result = SolvePart2(inputPath)!.Value;
+            testResult = SolvePart2(testInputPath);
+            result = SolvePart2(inputPath);
             expectedTestResult = ExpectedTestResultPart2;
         }
         
@@ -56,5 +56,5 @@ public interface IAocDay<TResult> : IAocDay
     }
 
     TResult SolvePart1(string path);
-    TResult? SolvePart2(string path);
+    TResult SolvePart2(string path);
 }

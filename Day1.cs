@@ -27,7 +27,7 @@ public class Day1 : IAocDay<int>
             .Sum();
     }
 
-    public int? SolvePart2(string path)
+    public int SolvePart2(string path)
     {
         List<int> leftLocations = [];
         List<int> rightLocations = [];
@@ -40,6 +40,6 @@ public class Day1 : IAocDay<int>
                 rightLocations.Add(pair[1]);
             });
         
-        return leftLocations.Select(l => l * rightLocations.Count(rl => rl == l)).Sum();
+        return leftLocations.Select(ll => ll * rightLocations.Count(rl => rl == ll)).Sum();
     }
 }
