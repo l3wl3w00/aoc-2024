@@ -9,7 +9,7 @@ public interface IAocDay<TResult> : IAocDay
     where TResult : struct, IEquatable<TResult> 
 {
     private const string RootPath =
-        "C:\\Main\\OwnProgrammingProjects\\AdventOfCode\\2024\\Aoc.2024\\Aoc.2024";
+        "C:\\Main\\OwnProgrammingProjects\\AdventOfCode\\Aoc.2024";
 
     TResult ExpectedTestResultPart1 { get; }
     TResult? ExpectedTestResultPart2 { get; }
