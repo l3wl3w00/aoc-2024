@@ -1,6 +1,4 @@
-﻿using System.Net.NetworkInformation;
-
-namespace Aoc._2024;
+﻿namespace Aoc._2024;
 
 public class Day2 : IAocDay<int>
 {
