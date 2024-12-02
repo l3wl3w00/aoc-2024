@@ -10,14 +10,6 @@ public class Day2 : IAocDay<int>
             .Select(line => line.Split(" ").Select(int.Parse).ToList())
             .Count(IsSafe);
 
-    private static bool IsSafe(List<int> levels) =>
-        !Enumerable.Range(1, levels.Count - 1)
-            .Select(idx => (Previous: levels[idx - 1], Current: levels[idx]))
-            .Any(item => 
-                levels[0] < levels[1] && item.Current <= item.Previous ||
-                levels[0] > levels[1] && item.Current >= item.Previous ||
-                Math.Abs(item.Previous - item.Current) is < 1 or > 3);
-
     public int SolvePart2(string path) =>
         File.ReadLines(path)
             .Select(line => line.Split(" ").Select(int.Parse).ToList())
@@ -29,4 +21,24 @@ public class Day2 : IAocDay<int>
                 .Concat(levels[(idx + 1)..])
                 .ToList())
             .Any(IsSafe);
+
+    private static bool IsSafe(List<int> levels) =>
+        !Enumerable.Range(1, levels.Count - 1)
+            .Select(idx => (Previous: levels[idx - 1], Current: levels[idx]))
+            .Any(item => BreaksRule(levels, item));
+
+    private static bool BreaksRule(List<int> levels, (int Previous, int Current) item)
+    {
+        var shouldBeAscending = levels[0] < levels[1];
+        var shouldBeDescending = levels[0] > levels[1];
+        
+        var isAscending = item.Current > item.Previous;
+        var isDescending = item.Current > item.Previous;
+        
+        var differnece = Math.Abs(item.Previous - item.Current);
+        
+        return shouldBeAscending && !isAscending ||
+               shouldBeDescending && !isDescending ||
+               differnece is < 1 or > 3;
+    }
 }
