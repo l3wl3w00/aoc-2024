@@ -33,7 +33,7 @@ public class Day2 : IAocDay<int>
         var shouldBeDescending = levels[0] > levels[1];
         
         var isAscending = item.Current > item.Previous;
-        var isDescending = item.Current > item.Previous;
+        var isDescending = item.Current < item.Previous;
         
         var differnece = Math.Abs(item.Previous - item.Current);
         
