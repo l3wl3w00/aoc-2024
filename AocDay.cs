@@ -26,8 +26,8 @@ public interface IAocDay<TResult> : IAocDay
     
     void Solve(int partNumber)
     {
-        string testInputPath = Path.Combine(RootPath, $"inputs/day{DayNumber}/part{partNumber}.testinput.txt");
-        string inputPath = Path.Combine(RootPath, $"inputs/day{DayNumber}/part{partNumber}.input.txt");
+        var testInputPath = Path.Combine(RootPath, $"inputs/day{DayNumber}/part{partNumber}.testinput.txt");
+        var inputPath = Path.Combine(RootPath, $"inputs/day{DayNumber}/part{partNumber}.input.txt");
 
         TResult testResult;
         TResult result;

@@ -11,7 +11,6 @@ public class Day1 : IAocDay<int>
         List<int> rightLocations = [];
         File.ReadLines(path)
             .Select(l => l.Split("   ").Select(int.Parse).ToArray())
-            .ToList()
             .ForEach(pair =>
             {
                 leftLocations.Add(pair[0]);
@@ -23,8 +22,7 @@ public class Day1 : IAocDay<int>
 
         return Enumerable
             .Range(0, leftLocations.Count)
-            .Select(i => Math.Abs(leftLocations[i] - rightLocations[i]))
-            .Sum();
+            .Sum(i => Math.Abs(leftLocations[i] - rightLocations[i]));
     }
 
     public int SolvePart2(string path)
@@ -33,13 +31,12 @@ public class Day1 : IAocDay<int>
         List<int> rightLocations = [];
         File.ReadLines(path)
             .Select(l => l.Split("   ").Select(int.Parse).ToArray())
-            .ToList()
             .ForEach(pair =>
             {
                 leftLocations.Add(pair[0]);
                 rightLocations.Add(pair[1]);
             });
         
-        return leftLocations.Select(ll => ll * rightLocations.Count(rl => rl == ll)).Sum();
+        return leftLocations.Sum(ll => ll * rightLocations.Count(rl => rl == ll));
     }
 }
