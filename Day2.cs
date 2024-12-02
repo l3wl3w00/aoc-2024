@@ -35,10 +35,10 @@ public class Day2 : IAocDay<int>
         var isAscending = item.Current > item.Previous;
         var isDescending = item.Current < item.Previous;
         
-        var differnece = Math.Abs(item.Previous - item.Current);
+        var difference = Math.Abs(item.Previous - item.Current);
         
         return shouldBeAscending && !isAscending ||
                shouldBeDescending && !isDescending ||
-               differnece is < 1 or > 3;
+               difference is < 1 or > 3;
     }
 }
