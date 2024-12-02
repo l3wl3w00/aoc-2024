@@ -10,40 +10,13 @@ public class Day2 : IAocDay<int>
             .Select(line => line.Split(" ").Select(int.Parse).ToList())
             .Count(IsSafe);
 
-    private static bool IsSafe(List<int> levels)
-    {
-        var previous = levels[0];
-        var current = levels[1];
-        if (previous == current)
-        {
-            return false;
-        }
-        var isFirst2Increasing = previous < current;
-        
-        for (var level = 1; level < levels.Count; level++)
-        {
-            current = levels[level];
-            if (isFirst2Increasing && current <= previous)
-            {
-                return false;
-            }
-            
-            if (!isFirst2Increasing && current >= previous)
-            {
-                return false;
-            }
-            
-            var difference = Math.Abs(previous - current);
-            if (difference is < 1 or > 3)
-            {
-                return false;
-            }
-
-            previous = current;
-        }
-        
-        return true;
-    }
+    private static bool IsSafe(List<int> levels) =>
+        !Enumerable.Range(1, levels.Count - 1)
+            .Select(idx => (Previous: levels[idx - 1], Current: levels[idx]))
+            .Any(item => 
+                levels[0] < levels[1] && item.Current <= item.Previous ||
+                levels[0] > levels[1] && item.Current >= item.Previous ||
+                Math.Abs(item.Previous - item.Current) is < 1 or > 3);
 
     public int SolvePart2(string path) =>
         File.ReadLines(path)
