@@ -1,9 +1,8 @@
 ﻿import os
 
 files_to_create = [
-    "part1.input.txt",
+    "input.txt",
     "part1.testinput.txt",
-    "part2.input.txt",
     "part2.testinput.txt",
 ]
 
