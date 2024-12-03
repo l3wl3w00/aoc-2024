@@ -1,4 +1,4 @@
-﻿namespace Aoc._2024;
+﻿namespace Aoc._2024.days;
 
 public class Day2 : IAocDay<int>
 {

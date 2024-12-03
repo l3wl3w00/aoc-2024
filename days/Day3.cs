@@ -1,4 +1,4 @@
-﻿namespace Aoc._2024;
+﻿namespace Aoc._2024.days;
 
 public class Day3 : IAocDay<int>
 {
@@ -13,7 +13,7 @@ public class Day3 : IAocDay<int>
             .Select(i => i.Split(",").Select(TryParseIntoInt).ToList())
             .Where(ints => ints.Count == 2)
             .Sum(ints => ints[0] * ints[1]);
-    private int TryParseIntoInt(string input)
+    private static int TryParseIntoInt(string input)
     {
         if (input.Length is 0 or > 3 || input.Any(c => !char.IsDigit(c)))
         {
