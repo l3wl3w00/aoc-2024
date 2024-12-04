@@ -2,9 +2,9 @@
 
 namespace Aoc._2024;
 
-class Program
+static class Program
 {
-    static void Main(string[] args)
+    static void Main(string[] _)
     {
         var daysToRun = Enumerable.Range(1, 4).ToHashSet();
 
