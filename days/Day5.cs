@@ -23,24 +23,23 @@ public class Day5 : IAocDay<int>
         
         public void Apply(List<int> updates)
         {
-            var (before, after) = this;
+            var (before, after) = this; // so that these can be captured by lambdas
             var indices = updates
                 .Enumerate()
                 .Where(ui => ui.Value == before || ui.Value == after)
                 .ToList();
-            var beforeCount = indices.Count(i => i.Value == before);
             
+            var beforeCount = indices.Count(i => i.Value == before);
             foreach (var i in indices.Select(i => i.Idx))
             {
                 if (beforeCount > 0)
                 {
                     beforeCount--;
                     updates[i] = Before;
+                    continue;
                 }
-                else
-                {
-                    updates[i] = After;
-                }
+
+                updates[i] = After;
             }
         }
     }
