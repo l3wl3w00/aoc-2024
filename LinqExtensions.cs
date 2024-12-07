@@ -2,6 +2,14 @@
 
 public static class LinqExtensions
 {
+    public static IEnumerable<T> Peek<T>(this IEnumerable<T> source, Action<T> action)
+    {
+        return source.Select(x =>
+        {
+            action(x);
+            return x;
+        });
+    }
     public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
     {
         foreach (var i in source)

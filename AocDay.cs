@@ -30,19 +30,16 @@ public interface IAocDay<TResult> : IAocDay
         var inputPath = Path.Combine(RootPath, $"inputs/day{DayNumber}/input.txt");
 
         TResult testResult;
-        TResult result;
         TResult? expectedTestResult;
         
         if (partNumber == 1)
         {
             testResult = SolvePart1(testInputPath);
-            result = SolvePart1(inputPath);
             expectedTestResult = ExpectedTestResultPart1;
         }
         else
         {
             testResult = SolvePart2(testInputPath);
-            result = SolvePart2(inputPath);
             expectedTestResult = ExpectedTestResultPart2;
         }
         
@@ -52,6 +49,8 @@ public interface IAocDay<TResult> : IAocDay
             Console.Error.WriteLine($"Part {partNumber} test result is incorrect!");
             return;
         }
+        
+        var result = partNumber == 1 ? SolvePart1(inputPath) : SolvePart2(inputPath);
         Console.WriteLine($"Part {partNumber} result: {result}");
     }
 

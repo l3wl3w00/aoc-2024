@@ -1,9 +1,10 @@
 ﻿using System.Collections.Frozen;
 
-namespace Aoc._2024.days;
-
+namespace Aoc._2024.Days;
+using Vec2 = Vector2<short>;
 public class Day4 : IAocDay<int>
 {
+
     public int DayNumber { get; } = 4;
     public int ExpectedTestResultPart1 { get; } = 18;
     public int? ExpectedTestResultPart2 { get; } = 9;
@@ -15,20 +16,15 @@ public class Day4 : IAocDay<int>
         [-1, 0], [-1, 1], [-1, -1],
         [0, 1], [0, -1],
     ];
-
-    private record struct IntVector2(int X, int Y)
-    {
-        public static IntVector2 operator +(IntVector2 a, IntVector2 b) => new(a.X + b.X, a.Y + b.Y);
-        public static IntVector2 operator *(int scalar, IntVector2 a) => new(a.X * scalar, a.Y * scalar);
-    }
+    
     public int SolvePart1(string path)
     {
-        var directions = DirectionsArray.Select(d => new IntVector2(d[0], d[1])).ToHashSet();
+        var directions = DirectionsArray.Select(d => new Vec2(d[0], d[1])).ToHashSet();
         var grid = File.ReadLines(path)
             .SelectMany((line, row) => line
                 .Select((c, col) => new
                 {
-                    Pos = new IntVector2(col, row),
+                    Pos = new Vec2(col, row),
                     Value = c
                 }))
             .ToFrozenDictionary(i => i.Pos, i => i.Value);
@@ -43,14 +39,14 @@ public class Day4 : IAocDay<int>
         var mas = Xmas[1..];
         var verticalDirections = DirectionsArray
             .Where(d => Math.Abs(d[0] - d[1]) is 2 or 0)
-            .Select(d => new IntVector2(d[0], d[1]))
+            .Select(d => new Vec2(d[0], d[1]))
             .ToList();
 
         var grid = File.ReadLines(path)
             .SelectMany((line, row) => line
                 .Select((c, col) => new
                 {
-                    Pos = new IntVector2(col, row),
+                    Pos = new Vec2(col, row),
                     Value = c
                 }))
             .ToFrozenDictionary(i => i.Pos, i => i.Value);
@@ -64,7 +60,7 @@ public class Day4 : IAocDay<int>
             .Count(pos => crosses.Count(cross => cross.Contains(pos)) == 2);
     }
 
-    private static char? GetAtPosOrNull(FrozenDictionary<IntVector2, char> grid, IntVector2 pos)
+    private static char? GetAtPosOrNull(FrozenDictionary<Vec2, char> grid, Vec2 pos)
     {
         var success = grid.TryGetValue(pos, out var result);
         return success ? result : null;
