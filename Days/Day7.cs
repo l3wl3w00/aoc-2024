@@ -54,21 +54,35 @@ public class Day7 : IAocDay<long>
         return File.ReadLines(path)
             .Select(line => line.Split(": "))
             .Select(parts => (Result: long.Parse(parts[0]), Numbers: parts[1].Split().Select(long.Parse).ToList()))
-            .Select(e =>
-            {
-                var numberIndices = e.Numbers.Select((_, idx) => (long)idx).ToImmutableHashSet();
-                return GetAllSubsetsOf(numberIndices)
-                    .Select(perm => (Perm: perm, Perms: GetAllSubsetsOf(numberIndices.Except(perm))))
-                    .SelectMany(perm => perm.Perms.Select(p => new Equation(
-                        e.Numbers,
-                        Enumerable
-                            .Range(0, e.Numbers.Count)
-                            .Select(n => p.Contains(n) ? OperationType.Multiply : perm.Perm.Contains(n) ? OperationType.Concatenate : OperationType.Add)
-                            .ToList())))
-                    .FirstOrDefault(eq => eq.Calculate() == e.Result);
-            })
+            .Select(e => ParseEquations(e).FirstOrDefault(eq => eq.Calculate() == e.Result))
             .OfType<Equation>()
             .Sum(e => e.Calculate());
+    }
+
+    private IEnumerable<Equation> ParseEquations((long Result, List<long> Numbers) equationTuple)
+    {
+        var numberIndices = equationTuple.Numbers.Select((_, idx) => (long)idx).ToImmutableHashSet();
+        return GetAllSubsetsOf(numberIndices)
+            .Select(subset => (Subset: subset, PossibleSubsetsOfTheRest: GetAllSubsetsOf(numberIndices.Except(subset))))
+            .SelectMany(subsetGrouping => subsetGrouping.PossibleSubsetsOfTheRest.Select(subset => new Equation(
+                equationTuple.Numbers,
+                Enumerable
+                    .Range(0, equationTuple.Numbers.Count)
+                    .Select(n =>
+                    {
+                        if (subset.Contains(n))
+                        {
+                            return OperationType.Multiply;
+                        }
+
+                        if (subsetGrouping.Subset.Contains(n))
+                        {
+                            return OperationType.Concatenate;
+                        }
+
+                        return OperationType.Add;
+                    })
+                    .ToList())));
     }
 
     private IEnumerable<FrozenSet<long>> GetAllSubsetsOf(ISet<long> longs)
