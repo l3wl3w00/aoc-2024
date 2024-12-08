@@ -6,7 +6,7 @@ static class Program
 {
     static void Main(string[] _)
     {
-        var daysToRun = Enumerable.Range(7, 7).ToHashSet();
+        var daysToRun = Enumerable.Range(8, 8).ToHashSet();
 
         Assembly.GetExecutingAssembly()?.GetTypes()
             .Where(t => t.IsAssignableTo(typeof(IAocDay)) && !t.IsAbstract)
