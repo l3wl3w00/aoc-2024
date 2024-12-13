@@ -1,10 +1,15 @@
 ﻿using System.Numerics;
 
-namespace Aoc._2024;
+namespace Aoc._2024.Common;
 
 public readonly record struct Vector2<T>(T X, T Y) 
     where T : struct, INumber<T>
 {
+    public static readonly Vector2<T> PositiveX = new(1, 0);
+    public static readonly Vector2<T> NegativeX = new(-1, 0);
+    public static readonly Vector2<T> PositiveY = new(0, 1);
+    public static readonly Vector2<T> NegativeY = new(0, -1);
+    public static readonly IEnumerable<Vector2<T>> UpDownLeftRightDirs = [PositiveX, NegativeX, PositiveY, NegativeY];
     public Vector2(int x, int y) : this(T.CreateChecked(x), T.CreateChecked(y))
     {
     }
@@ -20,4 +25,12 @@ public readonly record struct Vector2<T>(T X, T Y)
     public double DistanceTo(Vector2<T> freqPos2) => (this + T.CreateChecked(-1) * freqPos2).Length;
 
     private double Length => Math.Sqrt(double.CreateChecked(X * X + Y * Y));
+    public IEnumerable<Vector2<T>> NonDiagonalNeighbours
+    {
+        get
+        {
+            var self = this;
+            return UpDownLeftRightDirs.Select(d => self + d);
+        }
+    }
 }

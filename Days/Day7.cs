@@ -1,5 +1,6 @@
 ﻿using System.Collections.Frozen;
 using System.Collections.Immutable;
+using Aoc._2024.Common;
 
 namespace Aoc._2024.Days;
 

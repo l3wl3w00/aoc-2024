@@ -1,4 +1,5 @@
 ﻿using System.Collections.Frozen;
+using Aoc._2024.Common;
 
 namespace Aoc._2024.Days;
 using Vec2 = Vector2<short>;

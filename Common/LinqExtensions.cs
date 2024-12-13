@@ -1,4 +1,4 @@
-﻿namespace Aoc._2024;
+﻿namespace Aoc._2024.Common;
 
 public static class LinqExtensions
 {
